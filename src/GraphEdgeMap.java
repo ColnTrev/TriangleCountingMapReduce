@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -13,11 +14,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GraphEdgeMap extends Mapper<IntWritable,Text,IntWritable,IntWritable>{
-    IntWritable key;
-    IntWritable val;
+public class GraphEdgeMap extends Mapper<LongWritable,Text,IntWritable,IntWritable>{
+    IntWritable key = new IntWritable();
+    IntWritable val = new IntWritable();
     @Override
-    public void map(IntWritable k, Text v, Context context) throws IOException,InterruptedException {
+    public void map(LongWritable k, Text v, Context context) throws IOException,InterruptedException {
         String edge = v.toString().trim();
         String[] nodes = StringUtils.split(edge, " ");
         Integer start = Integer.parseInt(nodes[0]);

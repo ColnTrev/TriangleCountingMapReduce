@@ -18,6 +18,7 @@ import java.io.IOException;
  */
 public class TriangleCounting {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+        String filePath = 
         Job job1, job2, job3; // we need three different jobs for this task
         String edgeOutput = "/triangles/edgeResult";
         String triangleOutput = "/triangles/triangleResult";
@@ -66,8 +67,10 @@ public class TriangleCounting {
         FileInputFormat.addInputPath(job3, new Path(triangleOutput));
         FileOutputFormat.setOutputPath(job3, new Path(finalOutput));
 
-
+        long startTime = System.currentTimeMillis();
         int result = runJobs(job1,job2,job3);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Elapsed Time: " + (endTime - startTime));
         System.exit(result);
     }
 
