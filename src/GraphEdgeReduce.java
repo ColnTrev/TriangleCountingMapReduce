@@ -28,12 +28,16 @@ public class GraphEdgeReduce extends Reducer<IntWritable,IntWritable,EdgePair,In
             }
         }
         Collections.sort(cache);
+
         //write edges with V,V pairs with their K connection
         // example [1,3], [2]
 
         for(int i = 0; i < cache.size(); i++){
             for(int j = i + 1; j < cache.size(); j++){
                 EdgePair pair = new EdgePair(cache.get(i), cache.get(j));
+                if(!duplicates.containsKey(pair)){
+                    duplicates.put(pair, new ArrayList<>());
+                }
                 if(!duplicates.get(pair).contains(node)) {
                     duplicates.get(pair).add(node);
                     context.write(pair, node);
