@@ -20,7 +20,7 @@ public class UniqueTriangleMap extends Mapper<Text,Text,Text,Text>{
     static Text sorted = new Text();
     @Override
     public void map(Text triangle, Text value, Context context) throws IOException,InterruptedException {
-        String[] edges = StringUtils.split(triangle.toString()," ");
+        String[] edges = StringUtils.split(triangle.toString(),",");
         Arrays.sort(edges);
         sorted.set(edges[0] + ',' + edges[1] + ',' + edges[2]);
         context.write(sorted,value);
